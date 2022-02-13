@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="your keywords">
+    <meta name="description" content="your description">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <meta name="format-detection" content="telephone=no">
+    <title>fullPage全屏滚动</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="favicon.ico">
+</head>
+<body>
+    <div id="fullPage">
+        <div class="section"></div>
+        <div class="section section2" id="my-scrollbar" data-scrollbar>
+            <div class="main"></div>
+            <div class="main2"></div>
+            <div class="main3"></div>
+        </div>
+    </div>
+</body>
+<script src="jquery.js"></script>
+<script src="fullpage.js"></script>
+<script src="scroll.js"></script>
+<script>
+    $('#fullPage').fullpage({
+        scrollingSpeed: 1600,
+        anchors: ['page1', 'page2', 'page3', 'page4', 'page5', 'page6'],
+        easingcss3: 'cubic-bezier(0.42,0,0,0.99)',
+        // navigation: true,
+        navigationPosition: 'right',
+        responsiveWidth: 900,
+        responsiveSlides: true,
+        menu: "#menu",
+    });
+    var Scrollbar = window.Scrollbar;
+    Scrollbar.initAll()
+    var scrollbar = Scrollbar.get(document.querySelector('#my-scrollbar'))
+    scrollbar.addListener((status) => {
+        window.pageYOffset = scrollbar.scrollTop
+        var scroll =$('.section2')[0].scrollTop
+        var scroll2 = scrollbar.scrollTop
+        scroll = scroll2
+        if(scroll==0){
+            $('#fullPage').fullpage.setAllowScrolling(true)
+        }else{
+            $('#fullPage').fullpage.setAllowScrolling(false,'up');
+            $('#fullPage').fullpage.setKeyboardScrolling(false, 'down, up');
+        }
+    });
+</script>
+</html>
